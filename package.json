@@ -10,6 +10,9 @@
     "test": "jest --config=jestconfig.json",
     "prepublish": "npm test"
   },
+  "precommit": [
+    "build"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/echoulen/react-js-pull-to-refesh.git"

@@ -1,4 +1,6 @@
 .idea
-dist
 node_modules
 yarn-error.log
+src
+__tests__
+examples
