@@ -107,7 +107,7 @@ export class PullToRefresh extends React.Component<PullToRefreshProps, PullToRef
                 return;
             }
         }
-
+        this.container.style.transition = "transform 0.0s cubic-bezier(0,0,0.31,1)";
         this.dragging = true;
     }
 
@@ -121,11 +121,17 @@ export class PullToRefresh extends React.Component<PullToRefreshProps, PullToRef
             return;
         }
 
-        e.preventDefault();
+        if (e.cancelable) {
+            e.preventDefault();
+        }
 
         if ((this.currentY - this.startY) >= this.props.pullDownThreshold) {
             this.setState({
                 pullToRefreshThresholdBreached: true,
+            });
+        } else {
+            this.setState({
+              pullToRefreshThresholdBreached: false,
             });
         }
 
@@ -134,6 +140,7 @@ export class PullToRefresh extends React.Component<PullToRefreshProps, PullToRef
         }
 
         this.container.style.overflow = "visible";
+        this.container.style.transition = "transform 0.2s cubic-bezier(0,0,0.31,1)";
         this.container.style.transform = `translate(0px, ${this.currentY - this.startY}px)`;
         this.pullDown.style.visibility = "visible";
     }
