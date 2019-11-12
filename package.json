@@ -6,9 +6,7 @@
   "typings": "./dist/index.d.ts",
   "scripts": {
     "dev": "webpack-dev-server",
-    "pretest": "rimraf dist && tslint --project . && tsc -p .",
-    "test": "jest --config=jestconfig.json",
-    "prepublish": "npm test"
+    "build": "rimraf dist && tslint --project . && tsc -p ."
   },
   "precommit": [
     "build"
