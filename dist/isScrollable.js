@@ -1,22 +1,19 @@
-
-export const DIRECTION = Object.freeze({
-    up: -0b01,
-    down: 0b01,
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.DIRECTION = Object.freeze({
+    up: -1,
+    down: 1,
 });
-
-function isOverflowScrollable(element: Element) {
-    const overflowType = getComputedStyle(element).overflowY;
+function isOverflowScrollable(element) {
+    var overflowType = getComputedStyle(element).overflowY;
     if (element === document.scrollingElement && overflowType === "visible") {
         return true;
     }
-
     if (overflowType !== "scroll" && overflowType !== "auto") {
         return false;
     }
-
     return true;
 }
-
 /**
  * Returns whether a given element is scrollable in a given direction.
  * This only checks this element, not any of its ancestors.
@@ -25,25 +22,19 @@ function isOverflowScrollable(element: Element) {
  * @param {!number} direction The direction (see {@link DIRECTION})
  * @returns {!boolean} Whether the element is scrollable
  */
-function isScrollable(element: Element, direction: number) {
-
+function isScrollable(element, direction) {
     if (!isOverflowScrollable(element)) {
         return false;
     }
-
-    if (direction === DIRECTION.down) {
-        const bottomScroll = element.scrollTop + element.clientHeight;
-
+    if (direction === exports.DIRECTION.down) {
+        var bottomScroll = element.scrollTop + element.clientHeight;
         return bottomScroll < element.scrollHeight;
     }
-
-    if (direction === DIRECTION.up) {
+    if (direction === exports.DIRECTION.up) {
         return element.scrollTop > 0;
     }
-
     throw new Error("unsupported direction");
 }
-
 /**
  * Returns whether a given element or any of its ancestors (up to rootElement) is scrollable in a given direction.
  *
@@ -51,19 +42,18 @@ function isScrollable(element: Element, direction: number) {
  * @param {!number} dir The direction (see {@link DIRECTION})
  * @returns {!boolean} Whether the element or one of its ancestors is scrollable.
  */
-export function isTreeScrollable(element: Element, dir: number): boolean {
+function isTreeScrollable(element, dir) {
     if (isScrollable(element, dir)) {
         return true;
     }
-
     // if a body is overflow: hidden, scrolling will be disabled even though scrollingElement will report that it is not.
     if (element === document.body && getComputedStyle(document.body).overflowY === "hidden") {
         return false;
     }
-
     if (element.parentElement == null) {
         return false;
     }
-
     return isTreeScrollable(element.parentElement, dir);
 }
+exports.isTreeScrollable = isTreeScrollable;
+//# sourceMappingURL=isScrollable.js.map
