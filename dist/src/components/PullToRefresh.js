@@ -90,7 +90,7 @@ var PullToRefresh = /** @class */ (function (_super) {
                 return;
             }
         }
-        this.container.style.transition = "transform 0.0s cubic-bezier(0,0,0.31,1)";
+        this.removeSmoothAnim();
         this.dragging = true;
     };
     PullToRefresh.prototype.onTouchMove = function (e) {
@@ -115,10 +115,12 @@ var PullToRefresh = /** @class */ (function (_super) {
             });
         }
         if (this.currentY - this.startY > this.state.maxPullDownDistance) {
+            this.addSmoothAnim();
             return;
         }
+        else {
+        }
         this.container.style.overflow = "visible";
-        this.container.style.transition = "transform 0.2s cubic-bezier(0,0,0.31,1)";
         this.container.style.transform = "translate(0px, " + (this.currentY - this.startY) + "px)";
         this.pullDown.style.visibility = "visible";
     };
@@ -127,6 +129,7 @@ var PullToRefresh = /** @class */ (function (_super) {
         this.dragging = false;
         this.startY = 0;
         this.currentY = 0;
+        this.addSmoothAnim();
         if (!this.state.pullToRefreshThresholdBreached) {
             this.pullDown.style.visibility = this.props.startInvisible ? "hidden" : "visible";
             this.initContainer();
@@ -170,6 +173,12 @@ var PullToRefresh = /** @class */ (function (_super) {
             visibility: startInvisible ? "hidden" : "visible",
         };
         return (React.createElement("div", { id: "ptr-pull-down", style: contentStyle, ref: this.pullDownRef }, content));
+    };
+    PullToRefresh.prototype.addSmoothAnim = function () {
+        this.container.style.transition = "transform 0.2s cubic-bezier(0,0,0.31,1)";
+    };
+    PullToRefresh.prototype.removeSmoothAnim = function () {
+        this.container.style.transition = "transform 0.0s cubic-bezier(0,0,0.31,1)";
     };
     PullToRefresh.prototype.render = function () {
         var backgroundColor = this.props.backgroundColor;

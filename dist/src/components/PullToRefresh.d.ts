@@ -30,5 +30,7 @@ export declare class PullToRefresh extends React.Component<PullToRefreshProps, P
     private onEnd;
     private initContainer;
     private renderPullDownContent;
+    private addSmoothAnim;
+    private removeSmoothAnim;
     render(): JSX.Element;
 }
