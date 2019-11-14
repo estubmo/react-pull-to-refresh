@@ -39,8 +39,11 @@ var PullToRefresh = /** @class */ (function (_super) {
     };
     PullToRefresh.prototype.pullDownRef = function (pullDown) {
         this.pullDown = pullDown;
-        var maxPullDownDistance = this.pullDown && this.pullDown.firstChild && this.pullDown.firstChild["getBoundingClientRect"]
-            ? this.pullDown.firstChild["getBoundingClientRect"]().height : 0;
+        var maxPullDownDistance = this.pullDown &&
+            this.pullDown.firstChild &&
+            this.pullDown.firstChild["getBoundingClientRect"]
+            ? this.pullDown.firstChild["getBoundingClientRect"]().height
+            : 0;
         this.setState({ maxPullDownDistance: maxPullDownDistance });
     };
     PullToRefresh.prototype.componentDidMount = function () {
@@ -85,7 +88,9 @@ var PullToRefresh = /** @class */ (function (_super) {
             }
         }
         else {
-            var top_1 = this.container.getBoundingClientRect().top || this.container.getBoundingClientRect().y || 0;
+            var top_1 = this.container.getBoundingClientRect().top ||
+                this.container.getBoundingClientRect().y ||
+                0;
             if (this.startY - top_1 > triggerHeight) {
                 return;
             }
@@ -104,7 +109,7 @@ var PullToRefresh = /** @class */ (function (_super) {
         if (e.cancelable) {
             e.preventDefault();
         }
-        if ((this.currentY - this.startY) >= this.props.pullDownThreshold) {
+        if (this.currentY - this.startY >= this.props.pullDownThreshold) {
             this.setState({
                 pullToRefreshThresholdBreached: true,
             });
@@ -119,9 +124,11 @@ var PullToRefresh = /** @class */ (function (_super) {
             return;
         }
         else {
+            this.removeSmoothAnim();
         }
         this.container.style.overflow = "visible";
-        this.container.style.transform = "translate(0px, " + (this.currentY - this.startY) + "px)";
+        this.container.style.transform = "translate(0px, " + (this.currentY -
+            this.startY) + "px)";
         this.pullDown.style.visibility = "visible";
     };
     PullToRefresh.prototype.onEnd = function () {
@@ -131,7 +138,9 @@ var PullToRefresh = /** @class */ (function (_super) {
         this.currentY = 0;
         this.addSmoothAnim();
         if (!this.state.pullToRefreshThresholdBreached) {
-            this.pullDown.style.visibility = this.props.startInvisible ? "hidden" : "visible";
+            this.pullDown.style.visibility = this.props.startInvisible
+                ? "hidden"
+                : "visible";
             this.initContainer();
             return;
         }
@@ -163,7 +172,11 @@ var PullToRefresh = /** @class */ (function (_super) {
     PullToRefresh.prototype.renderPullDownContent = function () {
         var _a = this.props, releaseContent = _a.releaseContent, pullDownContent = _a.pullDownContent, refreshContent = _a.refreshContent, startInvisible = _a.startInvisible;
         var _b = this.state, onRefreshing = _b.onRefreshing, pullToRefreshThresholdBreached = _b.pullToRefreshThresholdBreached;
-        var content = onRefreshing ? refreshContent : pullToRefreshThresholdBreached ? releaseContent : pullDownContent;
+        var content = onRefreshing
+            ? refreshContent
+            : pullToRefreshThresholdBreached
+                ? releaseContent
+                : pullDownContent;
         var contentStyle = {
             position: "absolute",
             overflow: "hidden",

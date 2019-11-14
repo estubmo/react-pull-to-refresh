@@ -5,7 +5,7 @@
   "main": "dist/src/index.js",
   "typings": "./dist/src/index.d.ts",
   "scripts": {
-    "dev": "webpack-dev-server",
+    "dev": "npm run build && webpack-dev-server",
     "build": "rimraf dist && tslint --project . && tsc -p ."
   },
   "precommit": [
