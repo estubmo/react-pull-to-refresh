@@ -149,6 +149,7 @@ export class PullToRefresh extends React.Component<
       this.addSmoothAnim();
       return;
     } else {
+      this.removeSmoothAnim();
     }
 
     this.container.style.overflow = "visible";
